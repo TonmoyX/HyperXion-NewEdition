@@ -1,49 +1,73 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "@heroui/styles";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --font-serif-display: "Times New Roman", Times, serif;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
 }
 
 html {
-  height: 100%;
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* HyperXion brand theme: force the HeroUI dark palette site-wide and
+   retint the accent token to an aurora cyan for a "space-tech" identity. */
+:root {
+  color-scheme: dark;
+  --background: oklch(14% 0.02 264);
+  --foreground: var(--snow);
+
+  --surface: oklch(20% 0.025 264);
+  --surface-foreground: var(--foreground);
+  --surface-secondary: oklch(24% 0.03 264);
+  --surface-tertiary: oklch(28% 0.03 264);
+
+  --overlay: oklch(22% 0.03 264);
+  --overlay-foreground: var(--foreground);
+
+  --accent: oklch(78% 0.16 220);
+  --accent-foreground: oklch(15% 0.02 264);
+
+  --border: oklch(30% 0.03 264);
+  --separator: oklch(26% 0.03 264);
+  --focus: var(--accent);
 }
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  color: var(--foreground);
 }
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+::selection {
+  background-color: color-mix(in oklch, var(--accent) 45%, transparent);
+  color: white;
+}
+
+/* Reusable brand text gradient for headline emphasis */
+.brand-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    oklch(80% 0.16 220),
+    oklch(78% 0.18 300),
+    oklch(80% 0.16 220)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brand-gradient-move 6s ease-in-out infinite;
+}
+
+@keyframes brand-gradient-move {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
